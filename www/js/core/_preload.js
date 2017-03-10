@@ -31,6 +31,7 @@ var PreloadState = {
         game.load.image('extraLife', 'assets/game/extralife.png');
         game.load.spritesheet("harts", "assets/game/life.png", 180, 50, 4);
         game.load.spritesheet("laser", "assets/game/laser.png", 50, 20, 2);
+        game.load.spritesheet("laserv", "assets/game/laserv.png", 18, 50, 2);
 
         //MUSIC
         game.load.audio('win', ['assets/music/win.wav']);
