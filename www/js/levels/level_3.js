@@ -35,14 +35,17 @@ var LEVEL_3 = {
 
         // WALLS & ACTIVATORS & MOVERS
 
+        // STA OP DEZE BLOKKEN OM DE MUREN TE LATEN BEWEGEN
         activator1 = new ActivatorFunction("activateWall", 505, 155, wallCheckBool);
         activator2 = new ActivatorFunction("activateWall", 205, 450, wallCheckBool);
 
+        // DIT ZIJN DE MUREN DIE MOETEN BEWEGEN
         wall1 = new MovingWallFunction("movingWall1", 400, 250);
         wall2 = new MovingWallFunction("movingWall2", 400, 600);
 
-        // wall1Movement = new MoveWallFunction(350, 1000);
-        // wall2Movement = new MoveWallFunction(500, 1000);
+        // DIT ZIJN DE TWEENS DIE OP DE MUREN MOETEN GEBEUREN
+        // wall1Movement = new MoveWallFunction(350, 1000, wall1);
+        // wall2Movement = new MoveWal1:lFunction(500, 1000, wall2);
 
         // LAYER == MAP
         layer = new MapFunction("level3", "tileset", 'Tilelaag 1');
@@ -52,6 +55,7 @@ var LEVEL_3 = {
         game.physics.arcade.enable(bal);
         bal.enableBody = true;
         bal.body.collideWorldBounds = true;
+        life = this.game.add.sprite(220, 0, "harts");
     },
 
     update: function() {
@@ -63,8 +67,13 @@ var LEVEL_3 = {
         game.physics.arcade.overlap(bal, activator1, this.MoveWall1, null, this);
         game.physics.arcade.overlap(bal, activator2, this.MoveWall2, null, this);
 
+        // ACTIVATOR
+        // game.physics.arcade.overlap(bal, activator1, this.wall1Movement, null, this);
+        // game.physics.arcade.overlap(bal, activator2, this.wall2Movement, null, this);
+
         // BOUNCE WALLS
         game.physics.arcade.collide(layer, bal);
+
         // COLLISION MOVEABLES & BALL
         game.physics.arcade.collide(wall1, bal);
         game.physics.arcade.collide(wall1, layer);
@@ -82,22 +91,32 @@ var LEVEL_3 = {
 
         // HEALTH
         game.physics.arcade.overlap(bal, extraLife, AddLife, null, this);
+        life.frame = health;
 
     },
+    // MOVE WALL 1
     MoveWall1: function() {
+      if (counter == 0) {
         if (!this.wallCheckBool) {
-            console.log("activator");
+          counter++;
+            // console.log("activator");
+            lastEventTrackedTime = game.time.time;
             tweenWall = game.add.tween(wall1).to({
                 x: 350
             }, 1000, Phaser.Easing.Linear.None, true, 0, 0, false);
         }
+      }
     },
+    // MOVE WALL 2
     MoveWall2: function() {
+      if (counter == 1) {
         if (!this.wallCheckBool) {
-            console.log("activator2");
+          counter++;
+            // console.log("activator2");
             tweenWall = game.add.tween(wall2).to({
                 x: 500
             }, 1000, Phaser.Easing.Linear.None, true, 0, 0, false);
         }
     }
-};
+  }
+  };

@@ -30,6 +30,9 @@ var wall2;
 var counter = 0;
 var wallCheckBool = false;
 
+var tweenWall;
+var counter = 0;
+
 // ------------------------------------------------------ FUNCTIONS ------------------------------------------------------
 
 function fixFallthrough() {
@@ -104,10 +107,8 @@ function EnemyTween() {
     game.physics.arcade.collide(enemy, layer);
     if (game.physics.arcade.collide(enemy, bal))
         this.Decreasehealth();
-
     if (enemy.body.position.y <= 262.5)
         enemy.body.velocity.y += 50;
-
     if (enemy.body.position.y >= 600)
         enemy.body.velocity.y -= 50;
 }
@@ -152,30 +153,36 @@ function MapFunction(level, tileset, tileLaag) {
     return this.layer;
 }
 
-// // MOVING WALLS HANDLING
-// function MoveWallFunction(xLocStart, xLocEnd) {
-//     if (!wallCheckBool) {
-//         tweenWall = game.add.tween(wall1).to({
-//             x: xLocStart
-//         }, xLocEnd, Phaser.Easing.Linear.None, true, 0, 0, false);
-//         wallCheckBool = true;
-//     }
-// }
+// MOVING WALLS HANDLING
+function MoveWallFunction(xLocStart, xLocEnd, wallname) {
+    if (!wallCheckBool) {
+        tweenWall = game.add.tween(wallname).to({
+            x: xLocStart
+        }, xLocEnd, Phaser.Easing.Linear.None, true, 0, 0, false);
+    }
+    wallCheckBool = false;
+    console.log(tweenWall);
+    return tweenWall;
+}
 
 function FunctionsCreate() {
 
     // DEVICE HANDLING
     window.addEventListener("deviceorientation", HandleOrientation, true);
+
     // PHYSICS
     game.physics.startSystem(Phaser.Physics.ARCADE);
+
     // BACKGROUND
     game.add.image(1, 1, 'bg');
-    // HEALTH
-    life = game.add.sprite(220, 0, "harts");
+
     // CURSORS
     cursors = game.input.keyboard.createCursorKeys();
+
     // FIX
     fixFallthrough();
+
+    wallCounter = 0;
 }
 
 function FunctionsUpdate() {
@@ -186,8 +193,6 @@ function FunctionsUpdate() {
     // TIMER
     TimeChecker();
 
-    // HEALTH
-    life.frame = health;
 }
 // ------------------------------------------------------ ADDING STATES ------------------------------------------------------
 
