@@ -15,4 +15,4 @@ Designers
 DOWNLOAD APK FILE
 
 - [APK](https://build.phonegap.com/apps/2517736/install)
-- ![Alt text](http://full/path/to/img.jpg "Optional title")
+- ![The_SuperMaze](https://github.com/RobLui/The_SuperMaze_2017/blob/master/The_SuperMaze.png "The Game")
