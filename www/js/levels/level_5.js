@@ -128,21 +128,19 @@ var LEVEL_5 = {
         game.physics.arcade.overlap(bal, activator2, this.MoveWall2, null, this);
     },
     MoveWall1: function() {
-        if (wallCounter == 0) {
-            wallCounter++;
-            tweenWall = game.add.tween(wall1).to({
-                y: 700
-            }, 1000, Phaser.Easing.Linear.None, true, 0, 0, false);
-            checkifWallisOpen1 = true;
-        }
+        // if (wallCounter == 0 || wallCounter >= 1) {
+        wallCounter++;
+        this.tweenWall = game.add.tween(wall1).to({
+            y: 700
+        }, 1000, Phaser.Easing.Linear.None, true, 0, 0, false);
+        // }
     },
     MoveWall2: function() {
-        if (wallCounter == 1) {
-            wallCounter++;
-            tweenWall = game.add.tween(wall2).to({
-                y: 700
-            }, 1000, Phaser.Easing.Linear.None, true, 0, 0, false);
-            checkifWallisOpen2 = true;
-        }
+        // if (wallCounter == 0 || wallCounter >= 1) {
+        wallCounter++;
+        this.tweenWall = game.add.tween(wall2).to({
+            y: 700
+        }, 1000, Phaser.Easing.Linear.None, true, 0, 0, false);
+        // }
     }
 };

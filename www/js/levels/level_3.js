@@ -83,8 +83,6 @@ var LEVEL_3 = {
     MoveWall1: function() {
         if (wallCounter == 0) {
             wallCounter++;
-            // console.log("activator");
-            lastEventTrackedTime = game.time.time;
             tweenWall = game.add.tween(wall1).to({
                 x: 350
             }, 1000, Phaser.Easing.Linear.None, true, 0, 0, false);
@@ -94,7 +92,6 @@ var LEVEL_3 = {
     MoveWall2: function() {
         if (wallCounter == 1) {
             wallCounter++;
-            // console.log("activator2");
             tweenWall = game.add.tween(wall2).to({
                 x: 500
             }, 1000, Phaser.Easing.Linear.None, true, 0, 0, false);

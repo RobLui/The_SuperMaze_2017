@@ -58,7 +58,8 @@ function Decreasehealth() {
         health--;
         if (health == death) {
             health = maxHealth;
-            game.state.start(currentstate);
+            // COMMENT OUT FOR TESTING WITH INFINITE LIFE
+            // game.state.start(currentstate);
         }
         if (game.device.vibration) {
             window.navigator.vibrate(500);
@@ -83,7 +84,8 @@ function Laserhit(bal, laser) {
 // HOLE HIT
 function Holehit(bal, hole) {
     health = maxHealth;
-    game.state.start(currentstate);
+    // COMMENT OUT FOR TESTING WITHOUT FALLING INTO HOLES
+    // game.state.start(currentstate);
 }
 
 // WIN GAME
