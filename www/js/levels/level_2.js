@@ -11,6 +11,7 @@ var LEVEL_2 = {
 
         // LAYER, BALL, WINNINGHOLE
         layer = new MapFunction("level2", "tileset", 'Tilelaag 1');
+
         bal = new PlayerInLevelFunction("bal", 50, 50);
         winningHole = new CreateWinHoleFunction("winningHole", 525, 725);
 

@@ -11,8 +11,6 @@ var LEVEL_3 = {
 
         // LAYER = MapFunction(json, tileset, tile layer) - Object function
         layer = new MapFunction("level3", "tileset", 'Tilelaag 1');
-        bal = new PlayerInLevelFunction("bal", 50, 50);
-        winningHole = new CreateWinHoleFunction("winningHole", 525, 725);
 
         // ACTIVATOR = new ActivatorFunction(sprite, x, y, bool); - Object function
         activator1 = new ActivatorFunction("activateWall", 505, 155, wallCheckBool);
@@ -22,10 +20,8 @@ var LEVEL_3 = {
         wall1 = new MovingWallFunction("movingWall1", 400, 250);
         wall2 = new MovingWallFunction("movingWall2", 400, 600);
 
-
-        // DIT ZIJN DE TWEENS DIE OP DE MUREN MOETEN GEBEUREN
-        // wall1Movement = new MoveWallFunction(350, 1000, wall1);
-        // wall2Movement = new MoveWal1:lFunction(500, 1000, wall2);
+        winningHole = new CreateWinHoleFunction("winningHole", 525, 725);
+        bal = new PlayerInLevelFunction("bal", 50, 50);
 
         // HOLE / LOSING HOLE
         holes = game.add.group();
@@ -44,6 +40,9 @@ var LEVEL_3 = {
         lasers.callAll('animations.add', 'animations', "blink", [0, 1], 1, true);
         lasers.callAll('animations.play', 'animations', 'blink');
         game.physics.arcade.enable(lasers);
+
+        //HEALTH
+        life = game.add.sprite(220, 0, "harts");
     },
 
     update: function() {
@@ -83,7 +82,7 @@ var LEVEL_3 = {
     // MOVE WALL 1
     MoveWall1: function() {
         if (wallCounter == 0) {
-            counter++;
+            wallCounter++;
             // console.log("activator");
             lastEventTrackedTime = game.time.time;
             tweenWall = game.add.tween(wall1).to({

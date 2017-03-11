@@ -5,6 +5,22 @@ var LEVEL_4 = {
         wallCounter = 0;
         FunctionsCreate();
 
+        // STATES
+        currentstate = "level4";
+        nextState = "intro_lvl5";
+
+        // MAP
+        layer = new MapFunction("level4", "tileset", 'Tilelaag 1');
+
+        // ACTIVATEWALL
+        activator1 = new ActivatorFunction("activateWall", 205, 205, wallCheckBool);
+
+        // WALL
+        wall1 = new MovingWallFunction("movingWall", 400, 250);
+
+        winningHole = new CreateWinHoleFunction("winningHole", 525, 725);
+        bal = new PlayerInLevelFunction("bal", 50, 50);
+
         // LASER
         lasers = game.add.group();
         lasers.enableBody = true;
@@ -23,10 +39,7 @@ var LEVEL_4 = {
         holes.create(105, 405, "hole");
         holes.create(455, 555, "hole");
 
-        // WINNING HOLE
-        winningHole = new CreateWinHoleFunction("winningHole", 525, 725);
-
-        //ENEMY
+        // ENEMY
         enemy1 = game.add.sprite(75, 150, 'enemy');
         walk1 = enemy1.animations.add('walk1');
         enemy1.animations.play('walk1', 30, true);
@@ -42,24 +55,43 @@ var LEVEL_4 = {
         enemy3.animations.play('walk3', 30, true);
         game.physics.arcade.enable(enemy3);
 
-        // STATES
-        currentstate = "level4";
-        nextState = "intro_lvl5";
-
-        // ACTIVATEWALL
-        activator1 = new ActivatorFunction("activateWall", 205, 205, wallCheckBool);
-
-        // MAP
-        layer = new MapFunction("level4", "tileset", 'Tilelaag 1');
-
-        //WALLS
-        wall1 = new MovingWallFunction("movingWall", 400, 250);
-
-        // BAL A.K.A. PLAYER
-        bal = new PlayerInLevelFunction("bal", 50, 50);
-
-        //HEALTH
+        // HEALTH
         life = game.add.sprite(220, 0, "harts");
+    },
+    // UPDATE
+    update: function() {
+
+        FunctionsUpdate();
+
+        // BOUNCE WALLS
+        game.physics.arcade.collide(layer, bal);
+        game.physics.arcade.collide(wall1, bal);
+        game.physics.arcade.collide(wall1, layer);
+
+        // HOLE
+        game.physics.arcade.overlap(bal, holes, Holehit, null, this);
+
+        // LASER
+        game.physics.arcade.overlap(bal, lasers, Laserhit, null, this);
+
+        // WIN GAME
+        game.physics.arcade.overlap(bal, winningHole, Wingame, null, this);
+
+        // ENEMY
+        game.physics.arcade.overlap(bal, enemy1, Enemyhit, null, this);
+        game.physics.arcade.overlap(bal, enemy2, Enemyhit, null, this);
+        game.physics.arcade.overlap(bal, enemy3, Enemyhit, null, this);
+        game.physics.arcade.collide(enemy1, layer);
+        game.physics.arcade.collide(enemy2, layer);
+        game.physics.arcade.collide(enemy3, layer);
+
+        // MOVING WALLS
+        game.physics.arcade.overlap(bal, activator1, this.MoveWall1, null, this);
+
+        // HEALTH
+        life.frame = health;
+        this.EnemyTween();
+
     },
     EnemyTween: function() {
         if (enemy1.body.position.x <= 200)
@@ -79,40 +111,6 @@ var LEVEL_4 = {
 
         if (enemy3.body.position.y <= 425)
             enemy3.body.velocity.y += 15;
-    },
-    // UPDATE
-    update: function() {
-
-        // STANDARD UPDATE
-        FunctionsUpdate();
-
-        // BOUNCE WALLS
-        game.physics.arcade.collide(layer, bal);
-        game.physics.arcade.collide(wall1, bal);
-        game.physics.arcade.collide(wall1, layer);
-
-        // HOLE
-        game.physics.arcade.overlap(bal, holes, Holehit, null, this);
-
-        //LASER
-        game.physics.arcade.overlap(bal, lasers, Laserhit, null, this);
-
-        // WIN GAME
-        game.physics.arcade.overlap(bal, winningHole, Wingame, null, this);
-
-        // ENEMY
-        game.physics.arcade.overlap(bal, enemy1, Enemyhit, null, this);
-        game.physics.arcade.overlap(bal, enemy2, Enemyhit, null, this);
-        game.physics.arcade.overlap(bal, enemy3, Enemyhit, null, this);
-        game.physics.arcade.collide(enemy1, layer);
-        game.physics.arcade.collide(enemy2, layer);
-        game.physics.arcade.collide(enemy3, layer);
-
-        game.physics.arcade.overlap(bal, activator1, this.MoveWall1, null, this);
-
-        // HEALTH
-        life.frame = health;
-        this.EnemyTween();
     },
     MoveWall1: function() {
         if (wallCounter == 0) {
