@@ -32,6 +32,7 @@ var wallCheckBool = false;
 
 var tweenWall;
 var counter = 0;
+var player;
 
 // ------------------------------------------------------ FUNCTIONS ------------------------------------------------------
 
@@ -154,15 +155,32 @@ function MapFunction(level, tileset, tileLaag) {
 }
 
 // MOVING WALLS HANDLING
-function MoveWallFunction(xLocStart, xLocEnd, wallname) {
-    if (!wallCheckBool) {
-        tweenWall = game.add.tween(wallname).to({
-            x: xLocStart
-        }, xLocEnd, Phaser.Easing.Linear.None, true, 0, 0, false);
-    }
-    wallCheckBool = false;
-    console.log(tweenWall);
-    return tweenWall;
+// function MoveWallFunction(xLocStart, xLocEnd, wallname) {
+//     if (!wallCheckBool) {
+//         tweenWall = game.add.tween(wallname).to({
+//             x: xLocStart
+//         }, xLocEnd, Phaser.Easing.Linear.None, true, 0, 0, false);
+//     }
+//     wallCheckBool = false;
+//     // console.log(tweenWall);
+//     return tweenWall;
+// }
+
+function PlayerInLevelFunction(playerSprite, widthPlayer, heightPlayer) {
+    player = game.add.sprite(widthPlayer, heightPlayer, playerSprite);
+    game.physics.arcade.enable(player);
+    player.enableBody = true;
+    player.body.collideWorldBounds = true;
+    life = game.add.sprite(220, 0, "harts");
+    return player;
+}
+
+function CreateWinHoleFunction(winName, x, y) {
+    winName = game.add.sprite(525, 725, "winningHole");
+    game.physics.arcade.enable(winName);
+    winName.anchor.y = 0.5;
+    winName.anchor.x = 0.5;
+    return winName;
 }
 
 function FunctionsCreate() {
@@ -216,4 +234,4 @@ game.state.add('intro_lvl4', this.intro_lvl4State);
 game.state.add('intro_lvl5', this.intro_lvl5State);
 
 // START
-game.state.start('preload');
+game.state.start('preload');;

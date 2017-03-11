@@ -1,6 +1,7 @@
 var LEVEL_3 = {
     create: function() {
 
+        counter = 0;
         // STANDARD
         FunctionsCreate();
 
@@ -22,40 +23,30 @@ var LEVEL_3 = {
         holes.create(55, 155, "hole");
         holes.create(205, 355, "hole");
 
-        // HOLE / WINNING HOLE
-        winningHole = game.add.sprite(525, 725, "winningHole");
-        winningHole.enableBody = true;
-        game.physics.arcade.enable(winningHole);
-        winningHole.anchor.y = 0.5;
-        winningHole.anchor.x = 0.5;
-
-        // STATES
+        // CURRENT & NEXT STATE
         currentstate = "level3";
         nextState = "intro_lvl4";
 
-        // WALLS & ACTIVATORS & MOVERS
+        // WINNING HOLE = CreateWinHoleFunction("sprite", x, y);
+        winningHole = new CreateWinHoleFunction("winningHole", 525, 725);
 
-        // STA OP DEZE BLOKKEN OM DE MUREN TE LATEN BEWEGEN
+        // ACTIVATOR = new ActivatorFunction(sprite, x, y, bool); - Object function
         activator1 = new ActivatorFunction("activateWall", 505, 155, wallCheckBool);
         activator2 = new ActivatorFunction("activateWall", 205, 450, wallCheckBool);
 
-        // DIT ZIJN DE MUREN DIE MOETEN BEWEGEN
+        // WALL = MovingWallFunction(name, x, y) - Object function
         wall1 = new MovingWallFunction("movingWall1", 400, 250);
         wall2 = new MovingWallFunction("movingWall2", 400, 600);
+
+        // LAYER = MapFunction(json, tileset, tile layer) - Object function
+        layer = new MapFunction("level3", "tileset", 'Tilelaag 1');
+
+        // PLAYER = playerSprite(sprite , width, height) - Object function
+        bal = new PlayerInLevelFunction("bal", 50, 50);
 
         // DIT ZIJN DE TWEENS DIE OP DE MUREN MOETEN GEBEUREN
         // wall1Movement = new MoveWallFunction(350, 1000, wall1);
         // wall2Movement = new MoveWal1:lFunction(500, 1000, wall2);
-
-        // LAYER == MAP
-        layer = new MapFunction("level3", "tileset", 'Tilelaag 1');
-
-        // BAL A.K.A. PLAYER
-        bal = game.add.sprite(50, 50, "bal");
-        game.physics.arcade.enable(bal);
-        bal.enableBody = true;
-        bal.body.collideWorldBounds = true;
-        life = this.game.add.sprite(220, 0, "harts");
     },
 
     update: function() {
@@ -96,27 +87,27 @@ var LEVEL_3 = {
     },
     // MOVE WALL 1
     MoveWall1: function() {
-      if (counter == 0) {
-        if (!this.wallCheckBool) {
-          counter++;
-            // console.log("activator");
-            lastEventTrackedTime = game.time.time;
-            tweenWall = game.add.tween(wall1).to({
-                x: 350
-            }, 1000, Phaser.Easing.Linear.None, true, 0, 0, false);
+        if (counter == 0) {
+            if (!this.wallCheckBool) {
+                counter++;
+                // console.log("activator");
+                lastEventTrackedTime = game.time.time;
+                tweenWall = game.add.tween(wall1).to({
+                    x: 350
+                }, 1000, Phaser.Easing.Linear.None, true, 0, 0, false);
+            }
         }
-      }
     },
     // MOVE WALL 2
     MoveWall2: function() {
-      if (counter == 1) {
-        if (!this.wallCheckBool) {
-          counter++;
-            // console.log("activator2");
-            tweenWall = game.add.tween(wall2).to({
-                x: 500
-            }, 1000, Phaser.Easing.Linear.None, true, 0, 0, false);
+        if (counter == 1) {
+            if (!this.wallCheckBool) {
+                counter++;
+                // console.log("activator2");
+                tweenWall = game.add.tween(wall2).to({
+                    x: 500
+                }, 1000, Phaser.Easing.Linear.None, true, 0, 0, false);
+            }
         }
     }
-  }
-  };
+};
