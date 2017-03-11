@@ -1,8 +1,8 @@
 var LEVEL_3 = {
     create: function() {
 
-        counter = 0;
         // STANDARD
+        counter = 0;
         FunctionsCreate();
 
         // LASER
