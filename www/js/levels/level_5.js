@@ -5,7 +5,7 @@ var LEVEL_5 = {
         wallCounter = 0;
         FunctionsCreate();
 
-        layer = new MapFunction("level4", "tileset", 'Tilelaag 1');
+        layer = new MapFunction("level5", "tileset", 'Tilelaag 1');
 
         // STATES
         currentstate = "level5";
@@ -130,7 +130,7 @@ var LEVEL_5 = {
     MoveWall1: function() {
         if (wallCounter == 0) {
             wallCounter++;
-            tweenWall = game.add.tween(movingwall1).to({
+            tweenWall = game.add.tween(wall2).to({
                 y: 700
             }, 1000, Phaser.Easing.Linear.None, true, 0, 0, false);
             checkifWallisOpen1 = true;
@@ -139,7 +139,7 @@ var LEVEL_5 = {
     MoveWall2: function() {
         if (wallCounter == 1) {
             wallCounter++;
-            tweenWall = game.add.tween(movingwall2).to({
+            tweenWall = game.add.tween(wall2).to({
                 y: 700
             }, 1000, Phaser.Easing.Linear.None, true, 0, 0, false);
             checkifWallisOpen2 = true;
