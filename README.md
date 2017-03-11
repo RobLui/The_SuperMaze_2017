@@ -16,4 +16,5 @@ DOWNLOAD APK FILE
 
 [APK](https://build.phonegap.com/apps/2517736/install)
 
-QR SCAN TO DOWNLOAD ![The_SuperMaze](https://github.com/RobLui/The_SuperMaze_2017/blob/master/The_SuperMaze.png "The Game")
+QR SCAN TO DOWNLOAD<br>
+![The_SuperMaze](https://github.com/RobLui/The_SuperMaze_2017/blob/master/The_SuperMaze.png "The Game")
