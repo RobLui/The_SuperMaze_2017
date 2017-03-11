@@ -59,7 +59,7 @@ function Decreasehealth() {
         if (health == death) {
             health = maxHealth;
             // COMMENT OUT FOR TESTING WITH INFINITE LIFE
-            // game.state.start(currentstate);
+            game.state.start(currentstate);
         }
         if (game.device.vibration) {
             window.navigator.vibrate(500);
@@ -85,7 +85,7 @@ function Laserhit(bal, laser) {
 function Holehit(bal, hole) {
     health = maxHealth;
     // COMMENT OUT FOR TESTING WITHOUT FALLING INTO HOLES
-    // game.state.start(currentstate);
+    game.state.start(currentstate);
 }
 
 // WIN GAME
@@ -156,18 +156,6 @@ function MapFunction(level, tileset, tileLaag) {
     return this.layer;
 }
 
-// MOVING WALLS HANDLING
-// function MoveWallFunction(xLocStart, xLocEnd, wallname) {
-//     if (!wallCheckBool) {
-//         tweenWall = game.add.tween(wallname).to({
-//             x: xLocStart
-//         }, xLocEnd, Phaser.Easing.Linear.None, true, 0, 0, false);
-//     }
-//     wallCheckBool = false;
-//     // console.log(tweenWall);
-//     return tweenWall;
-// }
-
 function PlayerInLevelFunction(playerSprite, widthPlayer, heightPlayer) {
     player = game.add.sprite(widthPlayer, heightPlayer, playerSprite);
     game.physics.arcade.enable(player);
@@ -201,8 +189,6 @@ function FunctionsCreate() {
 
     // FIX
     fixFallthrough();
-
-    wallCounter = 0;
 }
 
 function FunctionsUpdate() {
@@ -212,7 +198,6 @@ function FunctionsUpdate() {
 
     // TIMER
     TimeChecker();
-
 }
 // ------------------------------------------------------ ADDING STATES ------------------------------------------------------
 
