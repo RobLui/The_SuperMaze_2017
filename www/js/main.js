@@ -25,6 +25,11 @@ var layer;
 
 var speed = 15;
 
+var wall1;
+var wall2;
+var counter = 0;
+var wallCheckBool = false;
+
 // ------------------------------------------------------ FUNCTIONS ------------------------------------------------------
 
 function fixFallthrough() {
@@ -57,13 +62,13 @@ function Decreasehealth() {
     }
 }
 
-// ENEMYHIT
+// ENEMY HIT
 function Enemyhit(bal, enemy) {
     Decreasehealth();
     lastEventTrackedTime = game.time.time;
 }
 
-// LASERHIT
+// LASER HIT
 function Laserhit(bal, laser) {
     if (laser.animations.frame == 0) {
         Decreasehealth();
@@ -71,18 +76,18 @@ function Laserhit(bal, laser) {
     }
 }
 
-// WINGAME
+// HOLE HIT
+function Holehit(bal, hole) {
+    health = maxHealth;
+    game.state.start(currentstate);
+}
+
+// WIN GAME
 function Wingame(bal, winningHole) {
     music = game.add.audio('win');
     music.play();
     health = maxHealth;
     game.state.start(nextState);
-}
-
-// HOLEHIT
-function Holehit(bal, hole) {
-    health = maxHealth;
-    game.state.start(currentstate);
 }
 
 // EXTRA LIFE
@@ -106,7 +111,85 @@ function EnemyTween() {
     if (enemy.body.position.y >= 600)
         enemy.body.velocity.y -= 50;
 }
-// ------------------------------------------------------ STATES ------------------------------------------------------
+
+// CURSOR MOVEMENT
+function CursorMovement() {
+    if (cursors.up.isDown) {
+        bal.body.velocity.y = -300;
+    } else if (cursors.down.isDown) {
+        bal.body.velocity.y = +300;
+    } else if (cursors.left.isDown) {
+        bal.body.velocity.x = -300;
+    } else if (cursors.right.isDown) {
+        bal.body.velocity.x = +300;
+    }
+}
+
+// WALLS THAT MOVE
+function MovingWallFunction(spriteWallName, posX, posY) {
+    this.spriteWallName = game.add.sprite(posX, posY, "movingWall");
+    this.spriteWallName.enableBody = true;
+    game.physics.arcade.enable(this.spriteWallName);
+    this.spriteWallName.body.immovable = true;
+    return this.spriteWallName;
+}
+
+// ACTIVATING WALLS
+function ActivatorFunction(activatorName, posX, posY, wallCheckBool) {
+    this.activatorName = game.add.sprite(posX, posY, "activateWall");
+    game.physics.arcade.enable(this.activatorName);
+    this.wallCheckBool = false;
+    return this.activatorName;
+}
+
+// MAP CREATE
+function MapFunction(level, tileset, tileLaag) {
+    this.map = game.add.tilemap(level);
+    this.map.addTilesetImage(tileset, tileset);
+    this.layer = this.map.createLayer(tileLaag);
+    this.layer.resizeWorld();
+    this.map.setCollisionBetween(1, 12);
+    return this.layer;
+}
+
+// // MOVING WALLS HANDLING
+// function MoveWallFunction(xLocStart, xLocEnd) {
+//     if (!wallCheckBool) {
+//         tweenWall = game.add.tween(wall1).to({
+//             x: xLocStart
+//         }, xLocEnd, Phaser.Easing.Linear.None, true, 0, 0, false);
+//         wallCheckBool = true;
+//     }
+// }
+
+function FunctionsCreate() {
+
+    // DEVICE HANDLING
+    window.addEventListener("deviceorientation", HandleOrientation, true);
+    // PHYSICS
+    game.physics.startSystem(Phaser.Physics.ARCADE);
+    // BACKGROUND
+    game.add.image(1, 1, 'bg');
+    // HEALTH
+    life = game.add.sprite(220, 0, "harts");
+    // CURSORS
+    cursors = game.input.keyboard.createCursorKeys();
+    // FIX
+    fixFallthrough();
+}
+
+function FunctionsUpdate() {
+
+    // CURSORS
+    CursorMovement();
+
+    // TIMER
+    TimeChecker();
+
+    // HEALTH
+    life.frame = health;
+}
+// ------------------------------------------------------ ADDING STATES ------------------------------------------------------
 
 // CORE STATES
 game.state.add('preload', this.PreloadState);
