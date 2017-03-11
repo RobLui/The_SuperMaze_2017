@@ -130,7 +130,7 @@ var LEVEL_5 = {
     MoveWall1: function() {
         if (wallCounter == 0) {
             wallCounter++;
-            tweenWall = game.add.tween(wall2).to({
+            tweenWall = game.add.tween(wall1).to({
                 y: 700
             }, 1000, Phaser.Easing.Linear.None, true, 0, 0, false);
             checkifWallisOpen1 = true;
