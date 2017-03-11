@@ -2,8 +2,37 @@ var LEVEL_3 = {
     create: function() {
 
         // STANDARD
-        counter = 0;
+        wallCounter = 0;
         FunctionsCreate();
+
+        // STATES
+        currentstate = "level3";
+        nextState = "intro_lvl4";
+
+        // LAYER = MapFunction(json, tileset, tile layer) - Object function
+        layer = new MapFunction("level3", "tileset", 'Tilelaag 1');
+        bal = new PlayerInLevelFunction("bal", 50, 50);
+        winningHole = new CreateWinHoleFunction("winningHole", 525, 725);
+
+        // ACTIVATOR = new ActivatorFunction(sprite, x, y, bool); - Object function
+        activator1 = new ActivatorFunction("activateWall", 505, 155, wallCheckBool);
+        activator2 = new ActivatorFunction("activateWall", 205, 450, wallCheckBool);
+
+        // WALL = MovingWallFunction(name, x, y) - Object function
+        wall1 = new MovingWallFunction("movingWall1", 400, 250);
+        wall2 = new MovingWallFunction("movingWall2", 400, 600);
+
+
+        // DIT ZIJN DE TWEENS DIE OP DE MUREN MOETEN GEBEUREN
+        // wall1Movement = new MoveWallFunction(350, 1000, wall1);
+        // wall2Movement = new MoveWal1:lFunction(500, 1000, wall2);
+
+        // HOLE / LOSING HOLE
+        holes = game.add.group();
+        holes.enableBody = true;
+        holes.create(305, 55, "hole");
+        holes.create(55, 155, "hole");
+        holes.create(205, 355, "hole");
 
         // LASER
         lasers = game.add.group();
@@ -15,43 +44,10 @@ var LEVEL_3 = {
         lasers.callAll('animations.add', 'animations', "blink", [0, 1], 1, true);
         lasers.callAll('animations.play', 'animations', 'blink');
         game.physics.arcade.enable(lasers);
-
-        // HOLE / LOSING HOLE
-        holes = game.add.group();
-        holes.enableBody = true;
-        holes.create(305, 55, "hole");
-        holes.create(55, 155, "hole");
-        holes.create(205, 355, "hole");
-
-        // CURRENT & NEXT STATE
-        currentstate = "level3";
-        nextState = "intro_lvl4";
-
-        // WINNING HOLE = CreateWinHoleFunction("sprite", x, y);
-        winningHole = new CreateWinHoleFunction("winningHole", 525, 725);
-
-        // ACTIVATOR = new ActivatorFunction(sprite, x, y, bool); - Object function
-        activator1 = new ActivatorFunction("activateWall", 505, 155, wallCheckBool);
-        activator2 = new ActivatorFunction("activateWall", 205, 450, wallCheckBool);
-
-        // WALL = MovingWallFunction(name, x, y) - Object function
-        wall1 = new MovingWallFunction("movingWall1", 400, 250);
-        wall2 = new MovingWallFunction("movingWall2", 400, 600);
-
-        // LAYER = MapFunction(json, tileset, tile layer) - Object function
-        layer = new MapFunction("level3", "tileset", 'Tilelaag 1');
-
-        // PLAYER = playerSprite(sprite , width, height) - Object function
-        bal = new PlayerInLevelFunction("bal", 50, 50);
-
-        // DIT ZIJN DE TWEENS DIE OP DE MUREN MOETEN GEBEUREN
-        // wall1Movement = new MoveWallFunction(350, 1000, wall1);
-        // wall2Movement = new MoveWal1:lFunction(500, 1000, wall2);
     },
 
     update: function() {
 
-        // STANDARD UPDATE
         FunctionsUpdate();
 
         // ACTIVATOR
@@ -83,31 +79,26 @@ var LEVEL_3 = {
         // HEALTH
         game.physics.arcade.overlap(bal, extraLife, AddLife, null, this);
         life.frame = health;
-
     },
     // MOVE WALL 1
     MoveWall1: function() {
-        if (counter == 0) {
-            if (!this.wallCheckBool) {
-                counter++;
-                // console.log("activator");
-                lastEventTrackedTime = game.time.time;
-                tweenWall = game.add.tween(wall1).to({
-                    x: 350
-                }, 1000, Phaser.Easing.Linear.None, true, 0, 0, false);
-            }
+        if (wallCounter == 0) {
+            counter++;
+            // console.log("activator");
+            lastEventTrackedTime = game.time.time;
+            tweenWall = game.add.tween(wall1).to({
+                x: 350
+            }, 1000, Phaser.Easing.Linear.None, true, 0, 0, false);
         }
     },
     // MOVE WALL 2
     MoveWall2: function() {
-        if (counter == 1) {
-            if (!this.wallCheckBool) {
-                counter++;
-                // console.log("activator2");
-                tweenWall = game.add.tween(wall2).to({
-                    x: 500
-                }, 1000, Phaser.Easing.Linear.None, true, 0, 0, false);
-            }
+        if (wallCounter == 1) {
+            wallCounter++;
+            // console.log("activator2");
+            tweenWall = game.add.tween(wall2).to({
+                x: 500
+            }, 1000, Phaser.Easing.Linear.None, true, 0, 0, false);
         }
     }
 };

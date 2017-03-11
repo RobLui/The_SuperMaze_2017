@@ -1,8 +1,9 @@
 var LEVEL_5 = {
     create: function() {
-        window.addEventListener("deviceorientation", HandleOrientation, true);
-        game.add.image(1, 1, 'bg');
-        game.physics.startSystem(Phaser.Physics.ARCADE);
+
+        // STANDARD
+        wallCounter = 0;
+        FunctionsCreate();
 
         // LASER
         lasers = game.add.group();
@@ -125,8 +126,9 @@ var LEVEL_5 = {
     },
     // UPDATE
     update: function() {
-        // TIMER
-        TimeChecker();
+
+        FunctionsUpdate()
+
         // BOUNCE WALLS
         game.physics.arcade.collide(layer, bal);
         game.physics.arcade.collide(movingwall1, bal);
@@ -151,8 +153,6 @@ var LEVEL_5 = {
         game.physics.arcade.overlap(bal, activator2, this.MoveWall2, null, this);
         this.EnemyTween();
     },
-
-
     MoveWall1: function() {
         if (checkifWallisOpen1 == false) {
             tweenWall = game.add.tween(movingwall1).to({

@@ -2,7 +2,7 @@ var LEVEL_4 = {
     create: function() {
 
         // STANDARD
-        counter = 0;
+        wallCounter = 0;
         FunctionsCreate();
 
         // LASER
@@ -115,8 +115,8 @@ var LEVEL_4 = {
         this.EnemyTween();
     },
     MoveWall1: function() {
-        if (counter == 0) {
-            counter++;
+        if (wallCounter == 0) {
+            wallCounter++;
             // console.log("activator2");
             tweenWall = game.add.tween(wall1).to({
                 x: 350

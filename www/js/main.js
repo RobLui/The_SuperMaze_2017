@@ -31,7 +31,7 @@ var counter = 0;
 var wallCheckBool = false;
 
 var tweenWall;
-var counter = 0;
+var wallCounter = 0;
 var player;
 
 // ------------------------------------------------------ FUNCTIONS ------------------------------------------------------
