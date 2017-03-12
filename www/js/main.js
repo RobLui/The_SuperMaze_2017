@@ -2,37 +2,21 @@ var game = new Phaser.Game(600, 800, Phaser.CANVAS, "");
 
 // ------------------------------------------------------ GLOBALS ------------------------------------------------------
 
+var currentTime, nextTime, elapsedTime;
+var currentstate, nextState = "";
+var map, layer, hole, wall1, wall2, player, tweenWall;
+
 // HEALTH
 var health = 3;
 var maxHealth = 3;
-var extraLife;
 var death = 0;
+var extraLife;
 
-// TIME
-var currentTime;
-var nextTime;
-var elapsedTime;
 var waitingTime = 0.5; // In seconde
 var lastEventTrackedTime = 0;
-
-// STATES
-var currentstate = "";
-var nextState = "";
-
-var map;
-var hole;
-var layer;
-
 var speed = 15;
-
-var wall1;
-var wall2;
-var counter = 0;
-var wallCheckBool = false;
-
-var tweenWall;
 var wallCounter = 0;
-var player;
+var wallCheckBool = false;
 
 // ------------------------------------------------------ FUNCTIONS ------------------------------------------------------
 
@@ -139,10 +123,9 @@ function MovingWallFunction(spriteWallName, posX, posY) {
 }
 
 // ACTIVATING WALLS
-function ActivatorFunction(activatorName, posX, posY, wallCheckBool) {
+function ActivatorFunction(activatorName, posX, posY) {
     this.activatorName = game.add.sprite(posX, posY, "activateWall");
     game.physics.arcade.enable(this.activatorName);
-    this.wallCheckBool = false;
     return this.activatorName;
 }
 

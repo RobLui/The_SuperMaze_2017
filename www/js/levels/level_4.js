@@ -13,7 +13,7 @@ var LEVEL_4 = {
         layer = new MapFunction("level4", "tileset", 'Tilelaag 1');
 
         // ACTIVATEWALL
-        activator1 = new ActivatorFunction("activateWall", 205, 205, wallCheckBool);
+        activator1 = new ActivatorFunction("activateWall", 205, 205);
 
         // WALL
         wall1 = new MovingWallFunction("movingWall", 400, 250);

@@ -13,8 +13,8 @@ var LEVEL_3 = {
         layer = new MapFunction("level3", "tileset", 'Tilelaag 1');
 
         // ACTIVATOR = new ActivatorFunction(sprite, x, y, bool); - Object function
-        activator1 = new ActivatorFunction("activateWall", 505, 155, wallCheckBool);
-        activator2 = new ActivatorFunction("activateWall", 205, 450, wallCheckBool);
+        activator1 = new ActivatorFunction("activateWall", 505, 155);
+        activator2 = new ActivatorFunction("activateWall", 205, 450);
 
         // WALL = MovingWallFunction(name, x, y) - Object function
         wall1 = new MovingWallFunction("movingWall1", 400, 250);
@@ -52,10 +52,6 @@ var LEVEL_3 = {
         // ACTIVATOR
         game.physics.arcade.overlap(bal, activator1, this.MoveWall1, null, this);
         game.physics.arcade.overlap(bal, activator2, this.MoveWall2, null, this);
-
-        // ACTIVATOR
-        // game.physics.arcade.overlap(bal, activator1, this.wall1Movement, null, this);
-        // game.physics.arcade.overlap(bal, activator2, this.wall2Movement, null, this);
 
         // BOUNCE WALLS
         game.physics.arcade.collide(layer, bal);

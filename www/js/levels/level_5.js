@@ -12,8 +12,8 @@ var LEVEL_5 = {
         nextState = "finished";
 
         // ACTIVATOR = new ActivatorFunction(sprite, x, y, bool); - Object function
-        activator1 = new ActivatorFunction("activateWall", 55, 305, wallCheckBool);
-        activator2 = new ActivatorFunction("activateWall", 505, 355, wallCheckBool);
+        activator1 = new ActivatorFunction("activateWall", 55, 305);
+        activator2 = new ActivatorFunction("activateWall", 505, 355);
 
         // WALL = MovingWallFunction(name, x, y) - Object function
         wall1 = new MovingWallFunction("movingWall1", 300, 650);
@@ -47,6 +47,8 @@ var LEVEL_5 = {
         holes.create(55, 705, "hole");
         holes.create(105, 605, "hole");
         holes.create(305, 455, "hole");
+
+
 
         //ENEMY
         enemy1 = game.add.sprite(250, 250, 'enemy');
