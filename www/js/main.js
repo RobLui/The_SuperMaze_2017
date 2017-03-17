@@ -4,7 +4,7 @@ var game = new Phaser.Game(600, 800, Phaser.CANVAS, "");
 
 var currentTime, nextTime, elapsedTime;
 var currentstate, nextState = "";
-var map, layer, hole, wall1, wall2, player, tweenWall;
+var map, layer, hole, wall1, wall2, player, enemy, tweenWall;
 
 // HEALTH
 var health = 3;
@@ -146,6 +146,15 @@ function PlayerInLevelFunction(playerSprite, widthPlayer, heightPlayer) {
     player.body.collideWorldBounds = true;
     life = game.add.sprite(220, 0, "harts");
     return player;
+}
+
+function EnemyInLevelFunction(enemySprite, widthEnemy, heightEnemy) {
+    enemy = game.add.sprite(widthEnemy, heightEnemy, enemySprite);
+    game.physics.arcade.enable(enemy);
+    enemy.enableBody = true;
+
+    // walk = this.enemy.animations.add('walk');
+    // this.enemy.animations.play('walk', 30, true);
 }
 
 function CreateWinHoleFunction(winName, x, y) {

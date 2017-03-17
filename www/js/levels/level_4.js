@@ -39,6 +39,10 @@ var LEVEL_4 = {
         holes.create(105, 405, "hole");
         holes.create(455, 555, "hole");
 
+        // enemy1 = new EnemyInLevelFunction("enemy", 75, 150);
+        // enemy2 = new EnemyInLevelFunction("enemy", 400, 300);
+        // enemy3 = new EnemyInLevelFunction("enemy", 150, 550);
+
         // ENEMY
         enemy1 = game.add.sprite(75, 150, 'enemy');
         walk1 = enemy1.animations.add('walk1');

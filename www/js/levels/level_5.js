@@ -48,8 +48,6 @@ var LEVEL_5 = {
         holes.create(105, 605, "hole");
         holes.create(305, 455, "hole");
 
-
-
         //ENEMY
         enemy1 = game.add.sprite(250, 250, 'enemy');
         walk1 = enemy1.animations.add('walk1');
